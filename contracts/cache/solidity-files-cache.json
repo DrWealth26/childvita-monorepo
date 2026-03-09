@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\USER\\Desktop\\childvita-monorepo\\contracts\\contracts\\ChildVitaGrant.sol": {
-      "lastModificationDate": 1772772013775,
-      "contentHash": "c549fd944a9e3ddfebb79cb3d6d70254",
+      "lastModificationDate": 1773003272879,
+      "contentHash": "ec56c9339a514c23b4f1567303bea47f",
       "sourceName": "contracts/ChildVitaGrant.sol",
       "solcConfig": {
         "version": "0.8.24",

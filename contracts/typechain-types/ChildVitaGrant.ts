@@ -31,7 +31,7 @@ export declare namespace ChildVitaGrant {
   export type GrantStruct = {
     id: PromiseOrValue<BigNumberish>;
     caregiver: PromiseOrValue<string>;
-    childId: PromiseOrValue<BigNumberish>;
+    childId: PromiseOrValue<string>;
     amount: PromiseOrValue<BigNumberish>;
     attendanceVerified: PromiseOrValue<boolean>;
     paid: PromiseOrValue<boolean>;
@@ -42,7 +42,7 @@ export declare namespace ChildVitaGrant {
   export type GrantStructOutput = [
     BigNumber,
     string,
-    BigNumber,
+    string,
     BigNumber,
     boolean,
     boolean,
@@ -51,7 +51,7 @@ export declare namespace ChildVitaGrant {
   ] & {
     id: BigNumber;
     caregiver: string;
-    childId: BigNumber;
+    childId: string;
     amount: BigNumber;
     attendanceVerified: boolean;
     paid: boolean;
@@ -63,7 +63,7 @@ export declare namespace ChildVitaGrant {
 export interface ChildVitaGrantInterface extends utils.Interface {
   functions: {
     "authorizedVerifiers(address)": FunctionFragment;
-    "createGrant(address,uint256,uint256)": FunctionFragment;
+    "createGrant(address,string,uint256)": FunctionFragment;
     "getGrant(uint256)": FunctionFragment;
     "grantCount()": FunctionFragment;
     "grants(uint256)": FunctionFragment;
@@ -92,7 +92,7 @@ export interface ChildVitaGrantInterface extends utils.Interface {
     functionFragment: "createGrant",
     values: [
       PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>
     ]
   ): string;
@@ -141,7 +141,7 @@ export interface ChildVitaGrantInterface extends utils.Interface {
 
   events: {
     "AttendanceVerified(uint256,string)": EventFragment;
-    "GrantCreated(uint256,address,uint256)": EventFragment;
+    "GrantCreated(uint256,address,string,uint256)": EventFragment;
     "GrantPaid(uint256)": EventFragment;
   };
 
@@ -165,10 +165,11 @@ export type AttendanceVerifiedEventFilter =
 export interface GrantCreatedEventObject {
   id: BigNumber;
   caregiver: string;
+  childId: string;
   amount: BigNumber;
 }
 export type GrantCreatedEvent = TypedEvent<
-  [BigNumber, string, BigNumber],
+  [BigNumber, string, string, BigNumber],
   GrantCreatedEventObject
 >;
 
@@ -215,7 +216,7 @@ export interface ChildVitaGrant extends BaseContract {
 
     createGrant(
       _caregiver: PromiseOrValue<string>,
-      _childId: PromiseOrValue<BigNumberish>,
+      _childId: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -234,7 +235,7 @@ export interface ChildVitaGrant extends BaseContract {
       [
         BigNumber,
         string,
-        BigNumber,
+        string,
         BigNumber,
         boolean,
         boolean,
@@ -243,7 +244,7 @@ export interface ChildVitaGrant extends BaseContract {
       ] & {
         id: BigNumber;
         caregiver: string;
-        childId: BigNumber;
+        childId: string;
         amount: BigNumber;
         attendanceVerified: boolean;
         paid: boolean;
@@ -273,7 +274,7 @@ export interface ChildVitaGrant extends BaseContract {
 
   createGrant(
     _caregiver: PromiseOrValue<string>,
-    _childId: PromiseOrValue<BigNumberish>,
+    _childId: PromiseOrValue<string>,
     _amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -292,7 +293,7 @@ export interface ChildVitaGrant extends BaseContract {
     [
       BigNumber,
       string,
-      BigNumber,
+      string,
       BigNumber,
       boolean,
       boolean,
@@ -301,7 +302,7 @@ export interface ChildVitaGrant extends BaseContract {
     ] & {
       id: BigNumber;
       caregiver: string;
-      childId: BigNumber;
+      childId: string;
       amount: BigNumber;
       attendanceVerified: boolean;
       paid: boolean;
@@ -331,7 +332,7 @@ export interface ChildVitaGrant extends BaseContract {
 
     createGrant(
       _caregiver: PromiseOrValue<string>,
-      _childId: PromiseOrValue<BigNumberish>,
+      _childId: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -350,7 +351,7 @@ export interface ChildVitaGrant extends BaseContract {
       [
         BigNumber,
         string,
-        BigNumber,
+        string,
         BigNumber,
         boolean,
         boolean,
@@ -359,7 +360,7 @@ export interface ChildVitaGrant extends BaseContract {
       ] & {
         id: BigNumber;
         caregiver: string;
-        childId: BigNumber;
+        childId: string;
         amount: BigNumber;
         attendanceVerified: boolean;
         paid: boolean;
@@ -392,14 +393,16 @@ export interface ChildVitaGrant extends BaseContract {
       zkProofHash?: null
     ): AttendanceVerifiedEventFilter;
 
-    "GrantCreated(uint256,address,uint256)"(
+    "GrantCreated(uint256,address,string,uint256)"(
       id?: null,
       caregiver?: null,
+      childId?: null,
       amount?: null
     ): GrantCreatedEventFilter;
     GrantCreated(
       id?: null,
       caregiver?: null,
+      childId?: null,
       amount?: null
     ): GrantCreatedEventFilter;
 
@@ -415,7 +418,7 @@ export interface ChildVitaGrant extends BaseContract {
 
     createGrant(
       _caregiver: PromiseOrValue<string>,
-      _childId: PromiseOrValue<BigNumberish>,
+      _childId: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -454,7 +457,7 @@ export interface ChildVitaGrant extends BaseContract {
 
     createGrant(
       _caregiver: PromiseOrValue<string>,
-      _childId: PromiseOrValue<BigNumberish>,
+      _childId: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

@@ -26,12 +26,12 @@ async function main() {
   // Fund contract
   await deployer.sendTransaction({
     to: contractAddress,
-    value: ethers.utils.parseEther("1.0"),
+    value: ethers.utils.parseEther("5.0"),
   });
 
-  console.log("📈 Contract funded with 1 ETH for mock payouts");
+  console.log("📈 Contract funded with 5 ETH for school-fee micro-grants");
 
-  console.log("\n📊 Generating 20 mock transactions...");
+  console.log("\n📊 Generating 20 ChildVita grant transactions...\n");
 
   const caregivers = [
     caregiver1,
@@ -41,10 +41,37 @@ async function main() {
     caregiver5,
   ];
 
+  // Realistic micro-grant amounts
+  const grantAmounts = [
+    "0.02",
+    "0.025",
+    "0.03",
+    "0.022",
+    "0.028",
+    "0.024",
+    "0.035",
+    "0.026",
+    "0.031",
+    "0.029",
+    "0.027",
+    "0.034",
+    "0.023",
+    "0.032",
+    "0.036",
+    "0.021",
+    "0.037",
+    "0.033",
+    "0.038",
+    "0.04",
+  ];
+
   for (let i = 1; i <= 20; i++) {
-    const caregiver = caregivers[(i - 1) % 5];
-    const childId = 1000 + i;
-    const amount = ethers.utils.parseEther("0.0001");
+    const caregiver = caregivers[(i - 1) % caregivers.length];
+
+    // Child registry ID (does not look like a year)
+    const childId = `CHV-${10000 + i}`;
+
+    const amount = ethers.utils.parseEther(grantAmounts[i - 1]);
 
     // Step 1: Create grant
     await childVitaGrant
@@ -52,7 +79,7 @@ async function main() {
       .createGrant(caregiver.address, childId, amount);
 
     // Step 2: Verify attendance
-    const fakeZkHash = `ipfs://fakezkproof${i}.json`;
+    const fakeZkHash = `ipfs://childvita/attendance-proof-${childId}.json`;
 
     await childVitaGrant
       .connect(deployer)
@@ -66,22 +93,23 @@ async function main() {
     const grant = await childVitaGrant.getGrant(i);
 
     console.log(
-      `Grant #${i}: Child ID ${childId}, Caregiver ${caregiver.address.slice(
+      `Grant #${i} | Child: ${childId} | Caregiver: ${caregiver.address.slice(
         0,
         10
-      )}..., Amount ${ethers.utils.formatEther(
+      )}... | Amount: ${ethers.utils.formatEther(
         amount
-      )} ETH, Verified: ${grant.attendanceVerified}, Paid: ${
+      )} ETH | Verified: ${grant.attendanceVerified} | Paid: ${
         grant.paid
-      }, ZK Hash: ${fakeZkHash}, Timestamp: ${grant.timestamp}`
+      } | ZK Proof: ${fakeZkHash}`
     );
   }
 
-  console.log("\n🎉 All 20 mock disbursements complete!");
+  console.log("\n🎉 All 20 ChildVita grant disbursements completed.");
   console.log(
-    "Copy this console output into your UNICEF application as initial test data."
+    "These transactions simulate verified school attendance micro-grants for vulnerable children."
   );
-  console.log(`Core smart contracts deployed at ${contractAddress}`);
+
+  console.log(`\n📍 Smart contract deployed at: ${contractAddress}`);
 }
 
 main()
